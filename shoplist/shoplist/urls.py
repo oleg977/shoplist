@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('products.urls')),  # Маршруты для товаров
-    path('users/', include('users.urls')),  # Маршруты для пользователей
+    path('users/', include('users.urls')),
+    # Маршруты для пользователей
 ]
 
 if settings.DEBUG:
