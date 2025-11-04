@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
 </head>
 <body>
-
+    <h1>{{ product.name }}</h1>
+    <p>Описание: {{ product.description }}</p>
+    <p>Цена: {{ product.price }} руб.</p>
+    <p>Адреса магазинов:</p>
+    <ul>
+        {% for address in product.shop_addresses %}
+            <li>{{ address }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'product_list' %}">Назад к списку товаров</a>
 </body>
 </html>

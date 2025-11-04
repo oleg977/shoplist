@@ -8,5 +8,5 @@ def product_list(request):
 
 # Детали товара
 def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
+    product = get_object_or_404(Product, pk=pk)  # Получаем товар по ID или возвращаем 404 ошибку
     return render(request, 'products/product_detail.html', {'product': product})
