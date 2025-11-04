@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'products',
     'users',
 ]
+AUTH_USER_MODEL = 'users.User'
 # Настройки для работы с медиафайлами
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
