@@ -1,14 +1,9 @@
-from django.contrib import admin
+from django.contrib import admin  # <--- Эта строка обязательна
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('products.urls')),  # Маршруты для товаров
     path('users/', include('users.urls')),
-    # Маршруты для пользователей
+    path('', lambda request: redirect('login'), name='home'),  # временный редирект
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

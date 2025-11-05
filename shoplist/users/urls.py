@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path  # <--- Эта строка была пропущена
 from . import views
 
 urlpatterns = [

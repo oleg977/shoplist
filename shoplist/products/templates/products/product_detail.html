@@ -9,6 +9,7 @@
     <h1>{{ product.name }}</h1>
     <p>Описание: {{ product.description }}</p>
     <p>Цена: {{ product.price }} руб.</p>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}">
     <p>Адреса магазинов:</p>
     <ul>
         {% for address in product.shop_addresses %}

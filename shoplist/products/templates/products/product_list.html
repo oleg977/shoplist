@@ -9,7 +9,9 @@
     <h1>Список товаров</h1>
     <ul>
         {% for product in products %}
-            <li>{{ product.name }} - {{ product.price }} руб.</li>
+            <li>
+                <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a> - {{ product.price }} руб.
+            </li>
         {% empty %}
             <li>Товары отсутствуют.</li>
         {% endfor %}

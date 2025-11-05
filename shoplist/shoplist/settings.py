@@ -23,13 +23,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-dtq=*-j!&y2)9t$^@#khylr9tb)q-(598(dfn#my_nk-^#6t+w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True  # <--- Исправлено: поставь True для локальной разработки
+
+# Если DEBUG = False, Django требует указать ALLOWED_HOSTS.
+# Для локальной разработки можно указать:
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]  # <--- Добавь этот список
 
 ALLOWED_HOSTS = []
-
-
 # Application definition
-
+AUTH_USER_MODEL = 'users.User'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +43,6 @@ INSTALLED_APPS = [
     'products',
     'users',
 ]
-AUTH_USER_MODEL = 'users.User'
 # Настройки для работы с медиафайлами
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
