@@ -1,25 +1,30 @@
 {% extends 'shoplist/base.html' %}
 {% block title %}{{ product.name }}{% endblock %}
 {% block content %}
-<h1>{{ product.name }}</h1>
-<p>Описание: {{ product.description }}</p>
-<p>Цена: {{ product.price }} руб.</p>
-<!-- Отображение изображения -->
-{% if product.image %}
-    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
-{% endif %}
-<p>Адреса магазинов:</p>
-<ul>
-    {% for address in product.shop_addresses %}
-        <li>{{ address }}</li>
-    {% endfor %}
-</ul>
-
-<!-- Кнопки "Редактировать" и "Удалить" -->
-{% if user.is_authenticated and user.role == 'sales_executive' or user.role == 'admin' or user.is_superuser %}
-    <a href="{% url 'product_edit' product.pk %}" class="btn btn-warning">Редактировать</a>
-    <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
-{% endif %}
-
-<a href="{% url 'product_list' %}" class="btn btn-secondary">Назад к списку товаров</a>
+<div class="card">
+    {% if product.image %}
+        <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
+    {% endif %}
+    <div class="card-body">
+        <h1 class="card-title">{{ product.name }}</h1>
+        <p class="card-text">{{ product.description }}</p>
+        <p class="card-text"><strong>Цена:</strong> {{ product.price }} руб.</p>
+        <div class="mb-3">
+            <strong>Адреса магазинов:</strong>
+            <ul class="list-group list-group-flush">
+                {% for address in product.shop_addresses %}
+                    <li class="list-group-item">{{ address }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Кнопки редактирования/удаления -->
+        {% if user.is_authenticated and user.role == 'sales_executive' or user.role == 'admin' or user.is_superuser %}
+            <div class="mt-3">
+                <a href="{% url 'product_edit' product.pk %}" class="btn btn-warning me-2">Редактировать</a>
+                <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger me-2">Удалить</a>
+            </div>
+        {% endif %}
+        <a href="{% url 'product_list' %}" class="btn btn-secondary">Назад к списку товаров</a>
+    </div>
+</div>
 {% endblock %}

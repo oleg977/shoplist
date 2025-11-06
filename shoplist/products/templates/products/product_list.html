@@ -1,33 +1,55 @@
 {% extends 'shoplist/base.html' %}
 {% block title %}Список товаров{% endblock %}
 {% block content %}
-<h1>Список товаров</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Список товаров</h1>
+    {% if user.is_authenticated and user.role == 'sales_executive' or user.role == 'admin' or user.is_superuser %}
+        <a href="{% url 'product_create' %}" class="btn btn-success">Добавить товар</a>
+    {% endif %}
+</div>
 
 <!-- Форма поиска -->
-<form method="get" action="{% url 'product_list' %}">
-    <div class="input-group mb-3">
+<form method="get" action="{% url 'product_list' %}" class="mb-4">
+    <div class="input-group">
         <input type="text" class="form-control" name="q" placeholder="Поиск товара..." value="{{ query }}">
         <button class="btn btn-outline-secondary" type="submit">Поиск</button>
     </div>
 </form>
 
-<!-- Кнопка "Добавить товар" -->
-{% if user.is_authenticated and user.role == 'sales_executive' or user.role == 'admin' or user.is_superuser %}
-    <a href="{% url 'product_create' %}" class="btn btn-success mb-3">Добавить товар</a>
+{% if products %}
+    <!-- Сетка карточек товаров -->
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;" alt="{{ product.name }}">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">Цена: {{ product.price }} руб.</p>
+                        <p class="card-text flex-grow-1">
+                            {% for address in product.shop_addresses|slice:":2" %}
+                                <small class="text-muted">{{ address }}</small><br>
+                            {% endfor %}
+                            {% if product.shop_addresses|length > 2 %}
+                                <small class="text-muted">... и {{ product.shop_addresses|length|add:"-2" }} других</small>
+                            {% endif %}
+                        </p>
+                        <a href="{% url 'product_detail' product.pk %}" class="btn btn-primary mt-auto">Подробнее</a>
+                        <!-- Кнопки редактирования/удаления -->
+                        {% if user.is_authenticated and user.role == 'sales_executive' or user.role == 'admin' or user.is_superuser %}
+                            <div class="mt-2">
+                                <a href="{% url 'product_edit' product.pk %}" class="btn btn-sm btn-warning me-1">Редактировать</a>
+                                <a href="{% url 'product_delete' product.pk %}" class="btn btn-sm btn-danger">Удалить</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-center">Товары не найдены.</p>
 {% endif %}
-
-<ul>
-    {% for product in products %}
-        <li>
-            <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a> - {{ product.price }} руб.
-            <!-- Кнопки "Редактировать" и "Удалить" -->
-            {% if user.is_authenticated and user.role == 'sales_executive' or user.role == 'admin' or user.is_superuser %}
-                <a href="{% url 'product_edit' product.pk %}" class="btn btn-sm btn-warning">Редактировать</a>
-                <a href="{% url 'product_delete' product.pk %}" class="btn btn-sm btn-danger">Удалить</a>
-            {% endif %}
-        </li>
-    {% empty %}
-        <li>Товары не найдены.</li>
-    {% endfor %}
-</ul>
 {% endblock %}

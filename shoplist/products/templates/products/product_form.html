@@ -1,11 +1,55 @@
 {% extends 'shoplist/base.html' %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-<h1>{{ title }}</h1>
-<form method="post" enctype="multipart/form-data"> <!-- enctype обязательно для загрузки файлов -->
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-    <a href="{% url 'product_list' %}" class="btn btn-secondary">Отмена</a>
-</form>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1>{{ title }}</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            <div class="mb-3">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="text-danger">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="text-danger">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.image.label_tag }}
+                {{ form.image }}
+                {% if form.image.errors %}
+                    <div class="text-danger">{{ form.image.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.price.label_tag }}
+                {{ form.price }}
+                {% if form.price.errors %}
+                    <div class="text-danger">{{ form.price.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.shop_addresses.label_tag }}
+                {{ form.shop_addresses }}
+                <small class="form-text text-muted">Введите адреса магазинов в формате JSON, например: ["ул. Ленина, 1", "пр. Мира, 5"]</small>
+                {% if form.shop_addresses.errors %}
+                    <div class="text-danger">{{ form.shop_addresses.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</div>
 {% endblock %}
