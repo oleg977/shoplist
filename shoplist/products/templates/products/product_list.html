@@ -1,20 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список товаров</title>
-</head>
-<body>
-    <h1>Список товаров</h1>
-    <ul>
-        {% for product in products %}
-            <li>
-                <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a> - {{ product.price }} руб.
-            </li>
-        {% empty %}
-            <li>Товары отсутствуют.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+<!-- products/templates/products/product_list.html -->
+{% extends 'shoplist/base.html' %}
+{% block title %}Список товаров{% endblock %}
+{% block content %}
+<h1>Список товаров</h1>
+
+<!-- Форма поиска -->
+<form method="get" action="{% url 'product_list' %}">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="q" placeholder="Поиск товара..." value="{{ query }}">
+        <button class="btn btn-outline-secondary" type="submit">Поиск</button>
+    </div>
+</form>
+
+<ul>
+    {% for product in products %}
+        <li>
+            <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a> - {{ product.price }} руб.
+        </li>
+    {% empty %}
+        <li>Товары не найдены.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

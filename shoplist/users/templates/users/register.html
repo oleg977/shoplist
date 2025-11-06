@@ -1,5 +1,21 @@
+{% extends 'shoplist/base.html' %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+<h2>Регистрация</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Войти</button>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+            {% for field_name, field_errors in form.errors.items %}
+                {% for error in field_errors %}
+                    <li>{{ field_name }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <button type="submit">Зарегистрироваться</button>
 </form>
+{% endblock %}
