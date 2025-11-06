@@ -1,21 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.name }}</title>
-</head>
-<body>
-    <h1>{{ product.name }}</h1>
-    <p>Описание: {{ product.description }}</p>
-    <p>Цена: {{ product.price }} руб.</p>
-    <img src="{{ product.image.url }}" alt="{{ product.name }}">
-    <p>Адреса магазинов:</p>
-    <ul>
-        {% for address in product.shop_addresses %}
-            <li>{{ address }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'product_list' %}">Назад к списку товаров</a>
-</body>
-</html>
+{% extends 'shoplist/base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<h1>{{ product.name }}</h1>
+<p>Описание: {{ product.description }}</p>
+<p>Цена: {{ product.price }} руб.</p>
+<!-- Отображение изображения -->
+{% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+{% endif %}
+<p>Адреса магазинов:</p>
+<ul>
+    {% for address in product.shop_addresses %}
+        <li>{{ address }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Кнопки "Редактировать" и "Удалить" -->
+{% if user.is_authenticated and user.role == 'sales_executive' or user.role == 'admin' or user.is_superuser %}
+    <a href="{% url 'product_edit' product.pk %}" class="btn btn-warning">Редактировать</a>
+    <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+{% endif %}
+
+<a href="{% url 'product_list' %}" class="btn btn-secondary">Назад к списку товаров</a>
+{% endblock %}

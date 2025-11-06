@@ -1,4 +1,3 @@
-<!-- products/templates/products/product_list.html -->
 {% extends 'shoplist/base.html' %}
 {% block title %}Список товаров{% endblock %}
 {% block content %}
@@ -12,10 +11,20 @@
     </div>
 </form>
 
+<!-- Кнопка "Добавить товар" -->
+{% if user.is_authenticated and user.role == 'sales_executive' or user.role == 'admin' or user.is_superuser %}
+    <a href="{% url 'product_create' %}" class="btn btn-success mb-3">Добавить товар</a>
+{% endif %}
+
 <ul>
     {% for product in products %}
         <li>
             <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a> - {{ product.price }} руб.
+            <!-- Кнопки "Редактировать" и "Удалить" -->
+            {% if user.is_authenticated and user.role == 'sales_executive' or user.role == 'admin' or user.is_superuser %}
+                <a href="{% url 'product_edit' product.pk %}" class="btn btn-sm btn-warning">Редактировать</a>
+                <a href="{% url 'product_delete' product.pk %}" class="btn btn-sm btn-danger">Удалить</a>
+            {% endif %}
         </li>
     {% empty %}
         <li>Товары не найдены.</li>
