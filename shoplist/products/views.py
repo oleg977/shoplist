@@ -44,6 +44,8 @@ def product_edit(request, pk):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product) # instance для обновления
         if form.is_valid():
+            # form.save() автоматически сохранит список shop_addresses как JSON-строку в базу
+            # Никакого json.loads() здесь не нужно!
             product = form.save()
             messages.success(request, f'Товар "{product.name}" успешно обновлён.')
             return redirect('product_detail', pk=product.pk) # Перенаправляем на страницу обновлённого товара

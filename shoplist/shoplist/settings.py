@@ -24,13 +24,13 @@ SECRET_KEY = 'django-insecure-dtq=*-j!&y2)9t$^@#khylr9tb)q-(598(dfn#my_nk-^#6t+w
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False # <--- Исправлено: поставь True для локальной разработки
+DEBUG = True # <--- Исправлено: поставь True для локальной разработки
 
 # Если DEBUG = False, Django требует указать ALLOWED_HOSTS.
 # Для локальной разработки можно указать:
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]  # <--- Добавь этот список
 
-ALLOWED_HOSTS = ['shoplist.onrender.com']
+#ALLOWED_HOSTS = ['shoplist.onrender.com']
 # Application definition
 AUTH_USER_MODEL = 'users.User'
 INSTALLED_APPS = [
