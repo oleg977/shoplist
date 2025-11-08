@@ -74,7 +74,6 @@ class ProductTestSetup(TestCase):
         return super().setUp()
 
 
-
 # --- ТЕСТЫ МОДЕЛИ (2/10) ---
         import tempfile
 
@@ -129,9 +128,6 @@ class AccessControlTest(ProductTestSetup):
         self.login_url = '/users/login/'
 
         return super().setUp()
-
-
-
 
 # --- ТЕСТЫ ОТОБРАЖЕНИЯ (3/10) ---
 
