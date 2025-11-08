@@ -159,3 +159,4 @@ class ProductViewTest(ProductTestSetup):
 
         self.assertContains(response, "Тестовый Ноутбук X1")
         self.assertNotContains(response, "Пылесос")
+        
