@@ -131,3 +131,5 @@ python manage.py runserver
 
 Тестирование проекта
 python manage.py test
+
+Этот файл был принудительно обновлён
