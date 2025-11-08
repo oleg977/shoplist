@@ -1,1 +1,2 @@
+# Procfile (без расширения)
 web: gunicorn shoplist.wsgi:application
