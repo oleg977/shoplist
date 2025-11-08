@@ -24,6 +24,7 @@ LOGIN_URL_PATH = '/users/login/'
 class ProductTestSetup(TestCase):
     """Базовый класс для настройки тестовых данных и объектов."""
 
+    # Тест обновлён 08.11.2025
     # products/tests.py (Внутри class ProductTestSetup(TestCase): )
     # products/tests.py (Внутри class ProductTestSetup(TestCase): )
 
