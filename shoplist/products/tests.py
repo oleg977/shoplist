@@ -23,7 +23,8 @@ LOGIN_URL_PATH = '/users/login/'
 
 class ProductTestSetup(TestCase):
     """Базовый класс для настройки тестовых данных и объектов."""
-   # products/tests.py (Внутри class ProductTestSetup(TestCase): )
+
+    # products/tests.py (Внутри class ProductTestSetup(TestCase): )
     # products/tests.py (Внутри class ProductTestSetup(TestCase): )
 
     def setUp(self):
@@ -73,9 +74,9 @@ class ProductTestSetup(TestCase):
 
         return super().setUp()
 
-
-# --- ТЕСТЫ МОДЕЛИ (2/10) ---
+        # --- ТЕСТЫ МОДЕЛИ (2/10) ---
         import tempfile
+
 
 # --- ТЕСТЫ КОНТРОЛЯ ДОСТУПА (5/10) ---
 
@@ -129,6 +130,7 @@ class AccessControlTest(ProductTestSetup):
 
         return super().setUp()
 
+
 # --- ТЕСТЫ ОТОБРАЖЕНИЯ (3/10) ---
 
 class ProductViewTest(ProductTestSetup):
@@ -159,4 +161,3 @@ class ProductViewTest(ProductTestSetup):
 
         self.assertContains(response, "Тестовый Ноутбук X1")
         self.assertNotContains(response, "Пылесос")
-        
