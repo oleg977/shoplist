@@ -1,18 +1,13 @@
-# Удаление товара
+# products/views.py
 @login_required
 @user_passes_test(is_sales_executive_or_admin)
 def product_delete(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
     if request.method == 'POST':
-        # Сохраняем имя товара для сообщения
         product_name = product.name
-        # Удаляем товар
         product.delete()
-        # Показываем сообщение об успешном удалении
         messages.success(request, f'Товар "{product_name}" успешно удалён.')
-        # Перенаправляем на страницу со списком товаров
-        return redirect('product_list')  # Убедитесь, что это правильное имя URL
+        return redirect('product_list')
 
-    # GET запрос - показываем страницу подтверждения
     return render(request, 'products/product_confirm_delete.html', {'product': product})
