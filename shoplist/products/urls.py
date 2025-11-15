@@ -3,10 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.product_list, name='product_list'),
-    path('product/<int:pk>/', views.product_detail, name='product_detail'),
-    # --- НОВОЕ ---
     path('create/', views.product_create, name='product_create'),
-    path('product/<int:pk>/edit/', views.product_edit, name='product_edit'),
-    path('product/<int:pk>/delete/', views.product_delete, name='product_delete'),
-    # --- /НОВОЕ ---
+    path('<int:pk>/', views.product_detail, name='product_detail'),
+    path('<int:pk>/edit/', views.product_edit, name='product_edit'),
+    path('<int:pk>/delete/', views.product_delete, name='product_delete'),  # ← убедитесь, что этот путь есть
 ]
