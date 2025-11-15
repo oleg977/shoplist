@@ -1,13 +1,22 @@
-# products/views.py
-@login_required
-@user_passes_test(is_sales_executive_or_admin)
-def product_delete(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-
-    if request.method == 'POST':
-        product_name = product.name
-        product.delete()
-        messages.success(request, f'Товар "{product_name}" успешно удалён.')
-        return redirect('product_list')
-
-    return render(request, 'products/product_confirm_delete.html', {'product': product})
+{% extends 'shoplist/base.html' %}
+{% block title %}Удалить товар{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Подтверждение удаления</h4>
+            </div>
+            <div class="card-body">
+                <h5>Вы уверены, что хотите удалить товар "{{ product.name }}"?</h5>
+                <p class="text-danger">Это действие нельзя отменить.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger me-2">Да, удалить</button>
+                    <a href="{% url 'product_detail' product.pk %}" class="btn btn-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
